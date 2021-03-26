@@ -1,5 +1,7 @@
 from setuptools import setup
 
+exec(open('glomtf/version.py').read())
+
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
