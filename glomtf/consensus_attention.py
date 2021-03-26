@@ -1,5 +1,6 @@
 import tensorflow as tf
 from einops import rearrange
+from .pairwisedist import pairwise_dist
 
 class ConsensusAttention(tf.keras.layers.Layer):
     def __init__(self, num_patches_side, attend_self=True, local_consensus_radius=0):
