@@ -1,5 +1,6 @@
 import tensorflow as tf
 
+
 def pairwise_dist(A, B):
     """Write an algorithm that computes batched the p-norm distance between each pair of two collections of row vectors.
 
