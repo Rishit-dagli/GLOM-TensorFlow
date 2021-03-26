@@ -2,8 +2,13 @@ import tensorflow as tf
 from einops import rearrange
 from .pairwisedist import pairwise_dist
 
+
 class ConsensusAttention(tf.keras.layers.Layer):
-    def __init__(self, num_patches_side, attend_self=True, local_consensus_radius=0):
+    def __init__(
+            self,
+            num_patches_side,
+            attend_self=True,
+            local_consensus_radius=0):
         super(ConsensusAttention, self).__init__()
         self.attend_self = attend_self
         self.local_consensus_radius = local_consensus_radius
@@ -12,7 +17,7 @@ class ConsensusAttention(tf.keras.layers.Layer):
             coors = tf.cast(tf.stack(tf.meshgrid(
                 tf.range(num_patches_side),
                 tf.range(num_patches_side),
-                indexing = 'ij'
+                indexing='ij'
             )), "float")
 
             coors = rearrange(coors, 'c h w -> (h w) c')
@@ -42,6 +47,6 @@ class ConsensusAttention(tf.keras.layers.Layer):
             max_neg_value = -tf.experimental.numpy.finfo(sim.stype).max
             sim = tf.where(self.non_local_mask, max_neg_value, sim)
 
-        attn = tf.nn.softmax(sim, axis = -1)
+        attn = tf.nn.softmax(sim, axis=-1)
         out = tf.einsum('b l i j, b j l d -> b i l d', attn, levels)
         return out
