@@ -10,7 +10,8 @@ class ConsensusAttention(tf.keras.layers.Layer):
         if self.local_consensus_radius > 0:
             coors = tf.cast(tf.stack(tf.meshgrid(
                 tf.range(num_patches_side),
-                tf.range(num_patches_side)
+                tf.range(num_patches_side),
+                indexing = 'ij'
             )), "float")
 
             coors = rearrange(coors, 'c h w -> (h w) c')
