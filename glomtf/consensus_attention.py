@@ -41,6 +41,6 @@ class ConsensusAttention(tf.keras.layers.Layer):
             max_neg_value = -tf.experimental.numpy.finfo(sim.stype).max
             sim = tf.where(self.non_local_mask, max_neg_value, sim)
 
-        attn = tf.nn.softmax(sim)
+        attn = tf.nn.softmax(sim, axis = -1)
         out = tf.einsum('b l i j, b j l d -> b i l d', attn, levels)
         return out
