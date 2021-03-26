@@ -10,6 +10,7 @@ class GroupedFeedForward(tf.keras.layers.Layer):
                                         tf.keras.layers.Conv1D(total_dim, total_dim * mult, 1, groups=groups,
                                                                activation='gelu'),
                                         tf.keras.layers.Conv1D(total_dim, total_dim * mult, 1, groups=groups),
+                                        Rearrange('b (l d) n -> b n l d', l=groups)
                                         ])
 
     def call(self, inputs):
