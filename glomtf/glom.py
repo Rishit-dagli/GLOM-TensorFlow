@@ -15,7 +15,7 @@ class Glom(tf.keras.Model):
             local_consensus_radius=0):
 
         super(Glom, self).__init__()
-        num_patches_side = (image_size / patch_size)
+        num_patches_side = (image_size // patch_size)
         num_patches = num_patches_side ** 2
         self.levels = levels
 
