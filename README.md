@@ -15,6 +15,9 @@ transformers, neural fields, contrastive representation learning, distillation a
 suggested by Geoffrey Hinton in his paper 
 ["How to represent part-whole hierarchies in a neural network"](https://arxiv.org/abs/2102.12627).
 
+Further, [Yannic Kilcher's video](https://youtu.be/cllFzkvrYmE) and [Phil Wang's repo](https://github.com/lucidrains/glom-pytorch)
+was very helpful for me to implement this project.
+
 ## Installation
 
 Run the following to install:
@@ -36,9 +39,6 @@ pip install -e .[dev]
 ```
 
 ## A bit about GLOM
-
-I would stronly suggest you to take a look at [Yannic Kilcher's video](https://youtu.be/cllFzkvrYmE) which was helpful 
-for me to implement this project.
 
 The GLOM architecture is composed of a large number of columns which
 all use exactly the same weights. Each column is a stack of spatially local
@@ -107,7 +107,7 @@ all_levels = model(img, iters = 12, return_all = True) # (13, 1, 256, 5, 12)
 top_level_output = all_levels[7, :, :, -1] # (1, 256, 512)
 # 1 - batch
 # 256 - patches
-# 512 - diemsnions
+# 512 - dimensions
 ```
 
 ## Citations
