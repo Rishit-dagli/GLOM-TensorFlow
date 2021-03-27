@@ -35,6 +35,41 @@ cd GLOM-TensorFlow
 pip install -e .[dev]
 ```
 
+## A bit about GLOM
+
+I would stronly suggest you to take a look at [Yannic Kilcher's video](https://youtu.be/cllFzkvrYmE) which was helpful 
+for me to implement this project too.
+
+The GLOM architecture is composed of a large number of columns which
+all use exactly the same weights. Each column is a stack of spatially local
+autoencoders that learn multiple levels of representation for what is happening
+in a small image patch. Each autoencoder transforms the embedding at one level
+into the embedding at an adjacent level using a multilayer bottom-up encoder
+and a multilayer top-down decoder. These levels correspond to the levels in a
+part-whole hierarchy.
+
+![](images/interactions.png)
+<p align="center">
+<small>Interactions among the 3 levels in one column</small>
+</p>
+
+An example shared by the author was as an example when show a face image, a single column might converge on embedding 
+vectors representing a nostril, a nose, a face, and a person.
+
+At each discrete time and in each column separately, the embedding at a
+level is updated to be the weighted average of:
+- bottom-up neural net acting on the embedding at the level below at the previous time
+- top-down neural net acting on the embedding at the level above at the previous time
+- embedding vector at the previous time step
+- attention-weighted average of the embeddings at the same level in nearby columns at the previous time
+
+For a static image, the embeddings at a level should settle down over time to produce similar vectors.
+
+![](images/embeddings.png)
+<p align="center">
+<small>A picture of the embeddings at a particular time</small>
+</p>
+
 ## Citations
 
 ```bibtex
