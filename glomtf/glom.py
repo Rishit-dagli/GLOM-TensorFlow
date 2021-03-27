@@ -24,7 +24,7 @@ class Glom(tf.keras.Model):
                                                               p2=patch_size),
                                                     tf.keras.layers.Dense(dim, input_dim=patch_size ** 2 * 3)])
         self.pos_emb = tf.keras.layers.Embedding(num_patches, dim)
-        self.init_levels = tf.random.normal([levels, dim])
+        self.init_levels = tf.Variable(tf.random.normal([levels, dim]))
 
         # bottom-up and top-down unit
         self.bottom_up = GroupedFeedForward(dim=dim,
