@@ -38,7 +38,7 @@ pip install -e .[dev]
 ## A bit about GLOM
 
 I would stronly suggest you to take a look at [Yannic Kilcher's video](https://youtu.be/cllFzkvrYmE) which was helpful 
-for me to implement this project too.
+for me to implement this project.
 
 The GLOM architecture is composed of a large number of columns which
 all use exactly the same weights. Each column is a stack of spatially local
@@ -69,6 +69,46 @@ For a static image, the embeddings at a level should settle down over time to pr
 <p align="center">
 <small>A picture of the embeddings at a particular time</small>
 </p>
+
+## Usage
+
+```python
+from glomtf import Glom
+
+model = Glom(dim = 512,
+             levels = 5,
+             image_size = 224,
+             patch_size = 14)
+
+img = tf.random.normal([1, 3, 224, 224])
+levels = model(img, iters = 12) # (1, 256, 5, 12)
+# 1 - batch
+# 256 - patches
+# 5 - levels
+# 12 - dimensions
+```
+
+Use the `return_all = True` argument to get all the column and level states per iteration. This also gives you access 
+to all the level data across iterations for clustering, from which you can inspect the islands too.
+
+```python
+from glomtf import Glom
+
+model = Glom(dim = 512,
+             levels = 5,
+             image_size = 224,
+             patch_size = 14)
+
+img = tf.random.normal([1, 3, 224, 224])
+all_levels = model(img, iters = 12, return_all = True) # (13, 1, 256, 5, 12)
+# 13 - time
+
+# top level outputs after iteration 6
+top_level_output = all_levels[7, :, :, -1] # (1, 256, 512)
+# 1 - batch
+# 256 - patches
+# 512 - diemsnions
+```
 
 ## Citations
 
