@@ -38,7 +38,10 @@ class Glom(tf.keras.Model):
                                             local_consensus_radius=local_consensus_radius)
 
     def call(self, img, iters=None, levels=None, return_all=False):
-        b, h, w, _ = *img.shape
+        b = img.shape[0]
+        h = img.shape[1]
+        w = img.shape[2]
+        # b, h, w, _ = *img.shape
 
         if iters is not None:
             iters = iters
