@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="glom-tf",
-    version="0.0.1",
+    version="0.1.0",
     description="Implement GLOM, part-whole hierarchies in TensorFlow",
     packages=["glomtf"],
 
