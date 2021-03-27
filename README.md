@@ -23,7 +23,7 @@ was very helpful for me to implement this project.
 
 Run the following to install:
 
-```shell script
+```sh
 pip install glom-tf
 ```
 
@@ -31,7 +31,7 @@ pip install glom-tf
 
 To install `glom-tf`, along with tools you need to develop and test, run the following in your virtualenv:
 
-```shell script
+```sh
 git clone https://github.com/Rishit-dagli/GLOM-TensorFlow.git
 # or clone your own fork
 
